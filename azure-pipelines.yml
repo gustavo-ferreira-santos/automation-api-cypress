@@ -1,0 +1,43 @@
+trigger:
+- main
+
+schedules:
+- cron: "0 11 * * *"
+  branches:
+    include:
+    - main
+  always: true
+
+pool:
+  vmImage: 'ubuntu-latest'  # Define a imagem do ambiente de execução, neste caso, Ubuntu
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Instalar Node.js'
+
+- script: |
+    npm install --verbose
+  displayName: 'Instalar dependências'
+
+- script: |
+    npm run cy:test:dev
+  displayName: 'Executar testes Cypress'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: 'cypress/mocha-xml/*.xml'
+    testRunTitle: 'Cypress Tests'
+    testRunSystem: 'Cypress'
+  displayName: 'Publicando xml dos resultados'
+
+- script: npm run "cy:allure:ci"
+  displayName: 'Gerando os relatórios do Allure'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: 'allure-report'
+    artifactName: 'allure-report'
+    publishLocation: 'Container'
+  displayName: 'Publicando os relatórios do Allure'

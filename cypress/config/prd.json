@@ -1,0 +1,9 @@
+{
+  "env": {
+    "url": {
+      "sso": "https://poliedro-sso-development.p4ed.com",
+      "pmais": "https://pmais-avaliacoes-api-development.p4ed.com"
+    },
+    "allure": true
+  }
+}
