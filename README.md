@@ -1,6 +1,4 @@
-# AVALIACOES-CONTRATOS
-
- Responsável por automatizar as chamadas e validação de contratos nas apis do sistema de avaliações poliedro utilizando o framework Cypress
+# automation-api-cypres
 
 ## Pré-requisitos
 
